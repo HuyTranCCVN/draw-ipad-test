@@ -1,18 +1,24 @@
-import React , {useEffect,useRef} from 'react';
+import React, { Suspense } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import './App.css';
 
+const Home = React.lazy(() => import('./Home'));
+const Test = React.lazy(() => import('./Test'));
+
+
 function App() {
-  const inputRef = useRef(null);
-  useEffect(() => {
-    inputRef.current.focus();
-  },[])
+
   return (
     <div className="App">
-      <input
-        placeholder={"Placeholder"}
-        className={"input"} 
-        ref={inputRef}
-      />
+      <Suspense>  
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/test" element={<Test />} />
+          </Routes>
+        </BrowserRouter>
+      </Suspense>
     </div>
   );
 }
